@@ -39,3 +39,40 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 🤫 Escondendo arquivos "feios" e experimentais
+*.backup
+*.old
+*.tmp
+*.draft
+*-old.*
+*-backup.*
+*-temp.*
+draft-*
+test-*
+debug-*
+experimental-*
+temp-*
+old-*
+
+# Arquivos de desenvolvimento local
+.local/
+local/
+scratch/
+playground/
+
+# IDEs e editores
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+
+# Cache adicional
+.cache/
+.temp/
+.eslintcache
+
+# Arquivos de sistema
+Thumbs.db
+ehthumbs.db
