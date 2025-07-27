@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from "@/core/components/ui/card";
-import { Button } from "@/core/components/ui/button";
-import { Badge } from "@/core/components/ui/badge";
-import { CodeModal } from "@/core/components/ui/code-modal";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CodeModal } from "@/components/ui/code-modal";
 import { Code, CheckCircle } from 'lucide-react';
 import { ConceptCard } from '@/types';
 import { cn } from "@/lib/utils";

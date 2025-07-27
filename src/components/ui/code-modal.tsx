@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/core/components/ui/dialog";
-import { Button } from "@/core/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/core/components/ui/tabs";
-import { Badge } from "@/core/components/ui/badge";
-import { FormattedContent } from "@/core/components/ui/formatted-content";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { FormattedContent } from "@/components/ui/formatted-content";
 import { Eye, EyeOff, Code } from 'lucide-react';
 import { ConceptCard } from '@/types';
 

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "@/core/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface FormattedContentProps {
   content: string;

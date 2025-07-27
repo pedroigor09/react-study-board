@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Badge } from "@/core/components/ui/badge";
-import { Card, CardContent } from "@/core/components/ui/card";
-import { Progress } from "@/core/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { Trophy, Target } from 'lucide-react';
 
 interface MissionProgressProps {
