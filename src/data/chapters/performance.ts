@@ -469,7 +469,6 @@ class CacheManager {
 
 const cache = new CacheManager();
 
-// 2️⃣ SMART CACHING com Stale-While-Revalidate
 async function getCachedData<T>(
   key: string,
   fetcher: () => Promise<T>,
@@ -481,17 +480,14 @@ async function getCachedData<T>(
     return cached;
   }
 
-  // 🔄 Cache miss - fetch and cache
   const data = await fetcher();
   await cache.set(key, data, ttl);
   return data;
 }
 
-// 3️⃣ CACHE INVALIDATION PATTERNS
 class SmartCache {
   private dependencies = new Map<string, Set<string>>();
 
-  // 🏷️ Register cache dependencies
   addDependency(childKey: string, parentKey: string): void {
     if (!this.dependencies.has(parentKey)) {
       this.dependencies.set(parentKey, new Set());
@@ -499,7 +495,6 @@ class SmartCache {
     this.dependencies.get(parentKey)?.add(childKey);
   }
 
-  // 🗑️ Cascade invalidation
   async invalidate(key: string): Promise<void> {
     await cache.delete(key);
     
