@@ -19,7 +19,6 @@ export function AnimatedArrow({ connection, delay = 0, isVisible = false }: Anim
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
       <svg className="w-full h-full" style={{ minHeight: '100vh', minWidth: '100vw' }}>
-        {/* Seta principal */}
         <motion.path
           d={connection.path}
           stroke="#6B7280"
@@ -49,7 +48,6 @@ export function AnimatedArrow({ connection, delay = 0, isVisible = false }: Anim
           className="filter drop-shadow-sm"
         />
         
-        {/* Ponta da seta */}
         <motion.polygon
           points="0,-4 8,0 0,4"
           fill="#6B7280"
@@ -75,7 +73,6 @@ export function AnimatedArrow({ connection, delay = 0, isVisible = false }: Anim
           </animateMotion>
         </motion.polygon>
         
-        {/* Path invisível para a animateMotion */}
         <defs>
           <path id={`path-${connection.id}`} d={connection.path} />
         </defs>
@@ -84,7 +81,6 @@ export function AnimatedArrow({ connection, delay = 0, isVisible = false }: Anim
   );
 }
 
-// Componente para múltiplas setas em sequência
 interface AnimatedConnectionsProps {
   connections: DrawingPath[];
   startAnimation?: boolean;

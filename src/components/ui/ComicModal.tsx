@@ -12,7 +12,6 @@ interface ComicModalProps {
 }
 
 export function ComicModal({ isOpen, onClose, title, message, type = 'info' }: ComicModalProps) {
-  // Não renderiza nada se não estiver aberto
   if (!isOpen) return null;
 
   const getTypeStyles = () => {

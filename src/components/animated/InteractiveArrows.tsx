@@ -42,7 +42,6 @@ export function InteractiveArrows({
 
   return (
     <>
-      {/* Seta anterior */}
       {showPrevious && (
         <motion.div
           className="fixed left-8 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer"
@@ -58,7 +57,6 @@ export function InteractiveArrows({
             viewBox="0 0 80 60"
             className="filter drop-shadow-lg"
           >
-            {/* Sombra da seta */}
             <motion.path
               d="M 50 30 Q 25 20 15 30 Q 25 40 50 30"
               stroke="rgba(0,0,0,0.2)"
@@ -69,7 +67,6 @@ export function InteractiveArrows({
               style={{ transform: 'translate(2px, 2px)' }}
             />
             
-            {/* Corpo da seta */}
             <motion.path
               d="M 50 30 Q 25 20 15 30 Q 25 40 50 30"
               stroke="#6366f1"
@@ -83,7 +80,6 @@ export function InteractiveArrows({
               }}
             />
             
-            {/* Ponta da seta */}
             <motion.path
               d="M 25 25 L 15 30 L 25 35"
               stroke="#6366f1"
@@ -94,7 +90,6 @@ export function InteractiveArrows({
               variants={arrowVariants}
             />
             
-            {/* Rabiscos de ênfase */}
             <motion.path
               d="M 55 25 Q 60 23 65 25"
               stroke="#6366f1"
@@ -114,7 +109,6 @@ export function InteractiveArrows({
         </motion.div>
       )}
 
-      {/* Seta seguinte */}
       {showNext && (
         <motion.div
           className="fixed right-8 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer"
@@ -130,7 +124,6 @@ export function InteractiveArrows({
             viewBox="0 0 80 60"
             className="filter drop-shadow-lg"
           >
-            {/* Sombra da seta */}
             <motion.path
               d="M 30 30 Q 55 20 65 30 Q 55 40 30 30"
               stroke="rgba(0,0,0,0.2)"
@@ -141,7 +134,6 @@ export function InteractiveArrows({
               style={{ transform: 'translate(2px, 2px)' }}
             />
             
-            {/* Corpo da seta */}
             <motion.path
               d="M 30 30 Q 55 20 65 30 Q 55 40 30 30"
               stroke="#6366f1"
@@ -155,7 +147,6 @@ export function InteractiveArrows({
               }}
             />
             
-            {/* Ponta da seta */}
             <motion.path
               d="M 55 25 L 65 30 L 55 35"
               stroke="#6366f1"
@@ -166,7 +157,6 @@ export function InteractiveArrows({
               variants={arrowVariants}
             />
             
-            {/* Rabiscos de ênfase */}
             <motion.path
               d="M 15 25 Q 10 23 5 25"
               stroke="#6366f1"

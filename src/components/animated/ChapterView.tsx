@@ -34,7 +34,6 @@ export function ChapterView({
   
   const { ref, isItemAnimated, allAnimated } = useSequentialAnimation(chapter.cards, 800);
   
-  // Simular loading inicial
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
@@ -45,11 +44,9 @@ export function ChapterView({
   
   useEffect(() => {
     if (allAnimated && !showConnections) {
-      // Mostrar conexões após todos os cards aparecerem
       const timer = setTimeout(() => {
         setShowConnections(true);
         setShowToast(true);
-        // Auto-hide toast
         setTimeout(() => setShowToast(false), 3000);
       }, 500);
       return () => clearTimeout(timer);
@@ -64,11 +61,9 @@ export function ChapterView({
     setViewedCards(prev => {
       const newSet = new Set([...prev, cardId]);
       
-      // Verificar se todos os cards foram visualizados
       if (newSet.size === chapter.cards.length && !missionComplete) {
         setMissionComplete(true);
         setShowToast(true);
-        // Auto-hide toast após mostrar conclusão
         setTimeout(() => setShowToast(false), 4000);
       }
       
@@ -76,7 +71,6 @@ export function ChapterView({
     });
   };
 
-  // Reset states quando mudar de capítulo
   useEffect(() => {
     setCompletedCards(new Set());
     setViewedCards(new Set());
@@ -99,7 +93,6 @@ export function ChapterView({
   
   return (
     <div className={`min-h-screen ${chapter.backgroundColor} relative overflow-hidden`}>
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -157,10 +150,8 @@ export function ChapterView({
         </div>
       </motion.div>
       
-      {/* Canvas de desenho */}
       <div ref={ref} className="relative px-6 pb-20">
         <div className="max-w-7xl mx-auto">
-          {/* Loading skeleton */}
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
               {Array.from({ length: chapter.cards.length }).map((_, index) => (
@@ -169,7 +160,6 @@ export function ChapterView({
             </div>
           ) : (
             <>
-              {/* Grid responsivo de cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
                 <AnimatePresence>
                   {chapter.cards.map((card, index) => (
@@ -191,7 +181,6 @@ export function ChapterView({
                 </AnimatePresence>
               </div>
               
-              {/* Conexões decorativas */}
               {showConnections && (
                 <div className="absolute inset-0 pointer-events-none opacity-30">
                   <svg className="w-full h-full">
@@ -218,7 +207,6 @@ export function ChapterView({
         </div>
       </div>
       
-      {/* Progress indicator melhorado */}
       <motion.div
         className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20"
         initial={{ opacity: 0, y: 50 }}
@@ -275,7 +263,6 @@ export function ChapterView({
         </div>
       </motion.div>
       
-      {/* Toast notification */}
       <Toast
         isVisible={showToast}
         type="success"
@@ -286,7 +273,6 @@ export function ChapterView({
         onClose={() => setShowToast(false)}
       />
       
-      {/* Scroll hint */}
       {!allAnimated && (
         <motion.div
           className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-20"

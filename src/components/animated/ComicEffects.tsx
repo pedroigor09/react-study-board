@@ -11,17 +11,14 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
   const [animationKey, setAnimationKey] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
-  // 🎯 Garante que só renderiza no cliente após hidratação
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Reinicia as animações quando o capítulo muda
   useEffect(() => {
     setAnimationKey(prev => prev + 1);
   }, [currentChapter]);
 
-  // 📊 Valores determinísticos para evitar hydration mismatch
   const repeatDelays = [3, 5, 2, 4, 6, 1, 3.5, 4.5];
   const floatingPositions = [
     { x: 25, y: 30 }, { x: 75, y: 20 }, { x: 15, y: 70 }, { x: 85, y: 80 },
@@ -30,11 +27,9 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
   const floatingDelays = [2, 4, 6, 8, 1, 3, 5, 7];
   const floatingDurations = [8, 7, 9, 6, 8.5, 7.5, 6.5, 9.5];
 
-  // ⚠️ Não renderiza nada até estar no cliente
   if (!isClient) {
     return null;
   }
-  // Efeitos específicos por capítulo
   const getChapterEffects = (chapter: number) => {
     const effects = [
       {
@@ -94,7 +89,6 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
 
   return (
     <div key={`comic-effects-${animationKey}`} className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
-      {/* Balões de pensamento estilo HQ */}
       {thoughtBubbles.map((bubble, index) => (
         <motion.div
           key={`thought-${animationKey}-${index}`}
@@ -114,26 +108,22 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
             repeatDelay: repeatDelays[index % repeatDelays.length]
           }}
         >
-          {/* Balão */}
           <div className="relative">
             <div className="bg-white border-3 border-gray-800 rounded-2xl px-4 py-2 shadow-lg relative">
               <span className="font-bold text-gray-800 font-handwriting text-lg">
                 {bubble.text}
               </span>
               
-              {/* Rabinho do balão */}
               <div className="absolute -bottom-2 left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
               <div className="absolute -bottom-3 left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-800"></div>
             </div>
             
-            {/* Pequenas bolhas */}
             <div className="absolute -bottom-6 left-8 w-2 h-2 bg-white border-2 border-gray-800 rounded-full"></div>
             <div className="absolute -bottom-8 left-10 w-1 h-1 bg-white border border-gray-800 rounded-full"></div>
           </div>
         </motion.div>
       ))}
 
-      {/* Palavras de impacto estilo Marvel */}
       {powerWords.map((word, index) => (
         <motion.div
           key={`power-${animationKey}-${index}`}
@@ -166,7 +156,6 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
         </motion.div>
       ))}
 
-      {/* Raios de energia */}
       <svg className="absolute inset-0 w-full h-full">
         {Array.from({ length: 4 }).map((_, i) => (
           <motion.path
@@ -196,7 +185,6 @@ export function ComicEffects({ currentChapter }: ComicEffectsProps) {
         ))}
       </svg>
 
-      {/* Partículas flutuantes */}
       {floatingPositions.map((pos, i) => (
         <motion.div
           key={`floating-${animationKey}-${i}`}

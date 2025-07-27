@@ -7,7 +7,6 @@ import { ConceptCard } from '@/types';
 import { useAnimationOnScroll } from '@/hooks/useAnimation';
 import { ComicModal } from '@/components/ui/ComicModal';
 
-// 📊 Valores determinísticos para evitar hydration mismatch
 const DETERMINISTIC_VALUES = {
   strokeOffsets: [1.5, 2.8, 0.9, 2.1, 1.2, 3.0, 0.7, 2.5],
   roughnessFactors: [0.3, -0.2, 0.4, -0.1, 0.2, -0.4, 0.1, -0.3],
@@ -22,17 +21,14 @@ const DETERMINISTIC_VALUES = {
   ]
 };
 
-// Função para formatar explicações com HTML rico e efeitos animados
 function formatExplanation(text: string): string {
   if (!text || typeof text !== 'string') {
     return '';
   }
 
   const formatted = text
-    // 🎨 NEGRITO com efeito de marca-texto (**texto**)
     .replace(/\*\*([^*]+)\*\*/g, '<span class="highlight-text">$1</span>')
     
-    // Títulos com emojis - melhor tratamento de quebras de linha
     .replace(/🎓\s*([^\n:]+):/g, '<div class="title-section">🎓 $1</div>')
     .replace(/📊\s*([^\n:]+):/g, '<div class="subtitle-section">📊 $1</div>')
     .replace(/🔍\s*([^\n:]+):/g, '<div class="subtitle-section">🔍 $1</div>')
@@ -52,21 +48,16 @@ function formatExplanation(text: string): string {
     .replace(/🗂️\s*([^\n:]+):/g, '<div class="subtitle-section">🗂️ $1</div>')
     .replace(/🏆\s*([^\n:]+):/g, '<div class="subtitle-section">🏆 $1</div>')
     
-    // Listas numeradas com melhor tratamento
     .replace(/(\d+\.\s)([^\n•]+)/g, '<div class="numbered-item"><span class="number">$1</span>$2</div>')
     
-    // Listas com bullet points - tratamento mais robusto
     .replace(/^•\s*([^\n•]+)/gm, '<div class="bullet-item">• $1</div>')
     
-    // Destaques especiais com cores - melhor regex
     .replace(/^✅\s*([^\n❌⚠️]+)/gm, '<div class="highlight-box success">✅ $1</div>')
     .replace(/^❌\s*([^\n✅⚠️]+)/gm, '<div class="highlight-box error">❌ $1</div>')
     .replace(/^⚠️\s*([^\n✅❌]+)/gm, '<div class="highlight-box warning">⚠️ $1</div>')
     
-    // Code inline com destaque
     .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
     
-    // Quebras de linha dupla para parágrafos
     .replace(/\n\s*\n/g, '</p><p class="paragraph">')
     .replace(/^([^<])/gm, '<p class="paragraph">$1')
     .replace(/([^>])$/gm, '$1</p>');
@@ -100,23 +91,20 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
   const [isCardReady, setIsCardReady] = useState(false);
   const [showComicModal, setShowComicModal] = useState(false);
 
-  // 🎯 Garante que só renderiza no cliente após hidratação
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // 🎨 Marca o card como pronto após as animações principais
   useEffect(() => {
     if (isAnimated && showParticles) {
       const timer = setTimeout(() => {
         setIsCardReady(true);
-      }, 2000); // 2 segundos após as partículas aparecerem
+      }, 2000); 
       
       return () => clearTimeout(timer);
     }
   }, [isAnimated, showParticles]);
 
-  // 🦸‍♂️ Função para lidar com clique quando não está pronto
   const handleCardClick = () => {
     if (!isCardReady) {
       setShowComicModal(true);
@@ -130,11 +118,9 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
     }
   };
 
-  // ⚠️ Não renderiza nada até estar no cliente
   if (!isClient) {
     return (
       <div className="relative mb-8 mx-auto max-w-sm" style={{ height: '300px' }}>
-        {/* Placeholder durante hydration */}
       </div>
     );
   }
@@ -180,13 +166,11 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
     }
   };
 
-  // Gerador de path irregular estilo Excalidraw
   const generateHandDrawnPath = (cardIndex: number = 0) => {
     const width = 320;
     const height = 220;
     const roughness = 2;
     
-    // Função para adicionar irregularidade determinística
     const addRoughness = (value: number, seed: number) => {
       const factor = DETERMINISTIC_VALUES.roughnessFactors[seed % DETERMINISTIC_VALUES.roughnessFactors.length];
       return value + factor * roughness;
@@ -215,7 +199,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
         maxWidth: '320px'
       }}
     >
-      {/* Card com efeito de desenho */}
       <motion.div
         variants={cardVariants}
         initial="hidden"
@@ -223,13 +206,11 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
         onAnimationComplete={() => onCardComplete?.(card.id)}
         className="relative"
       >
-        {/* Borda desenhada à mão estilo Excalidraw */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 320 220"
           style={{ zIndex: 1 }}
         >
-          {/* Efeito de sombra do giz */}
           <motion.path
             d={generateHandDrawnPath()}
             stroke="rgba(55, 65, 81, 0.3)"
@@ -249,7 +230,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
             }}
           />
           
-          {/* Borda principal */}
           <motion.path
             d={generateHandDrawnPath(card.id?.length || 0)}
             stroke="#374151"
@@ -270,7 +250,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
             }}
           />
 
-          {/* Linha de destaque irregular */}
           <motion.path
             d={`M 20 35 Q ${DETERMINISTIC_VALUES.underlineSeeds[0]} ${DETERMINISTIC_VALUES.underlineSeeds[1]} ${DETERMINISTIC_VALUES.underlineSeeds[2]} 35`}
             stroke="#6366f1"
@@ -285,7 +264,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
             transition={{ duration: 2, delay: 0.5 }}
           />
 
-          {/* Pequenos rabiscos de ênfase */}
           {DETERMINISTIC_VALUES.dustPositions.slice(0, 3).map((pos, i) => (
             <motion.circle
               key={`emphasis-${i}`}
@@ -308,7 +286,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
           ))}
         </svg>
         
-        {/* Conteúdo do card */}
         <motion.div
           variants={contentVariants}
           initial="hidden"
@@ -409,7 +386,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
         </motion.div>
       </motion.div>
       
-      {/* Partículas de giz quando o card aparece */}
       {showParticles && (
         <div className="absolute inset-0 pointer-events-none">
           {DETERMINISTIC_VALUES.sparklePositions.slice(0, 6).map((pos, i) => (
@@ -437,7 +413,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
         </div>
       )}
       
-      {/* Modal de código */}
       {showCode && card.code && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -500,7 +475,6 @@ export function AnimatedCard({ card, delay = 0, onCardComplete, onCardViewed }: 
         </motion.div>
       )}
 
-      {/* 🦸‍♂️ Modal estilo HQ para avisar sobre card não pronto */}
       <ComicModal
         isOpen={showComicModal}
         onClose={() => setShowComicModal(false)}

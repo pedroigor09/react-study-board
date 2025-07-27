@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  // Para GitHub Pages
   basePath: process.env.NODE_ENV === 'production' ? '/react-study-board' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/react-study-board/' : '',
 };
