@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -150,13 +149,13 @@ export function StudyLoading({ message, onSkip }: StudyLoadingProps) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Image
-                src="/iconspawn.png"
+              <img
+                src={process.env.NODE_ENV === 'production' ? '/react-study-board/iconspawn.png' : '/iconspawn.png'}
                 alt="React Study Board Icon"
                 width={80}
                 height={80}
                 className="relative z-10"
-                priority
+                loading="eager"
               />
             </motion.div>
           </div>
